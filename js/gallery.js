@@ -1,4 +1,3 @@
-
 const images = [
   {
     preview:
@@ -65,6 +64,59 @@ const images = [
   },
 ];
 
+// const gallery = document.querySelector(".gallery");
+
+// function createGalleryItem({ preview, original, description }) {
+//   const galleryItem = document.createElement("li");
+//   galleryItem.classList.add("gallery-item");
+
+//   const link = document.createElement("a");
+//   link.classList.add("gallery-link");
+//   link.href = original;
+
+//   const image = document.createElement("img");
+//   image.classList.add("gallery-image");
+//   image.src = preview;
+//   image.alt = description;
+//   image.setAttribute("data-source", original);
+
+//   link.appendChild(image);
+//   galleryItem.appendChild(link);
+
+//   return galleryItem;
+// }
+
+// function openModal(event) {
+//   event.preventDefault();
+
+//   if (event.target.nodeName !== "IMG") {
+//     return;
+//   }
+
+//   const largeImageURL = event.target.dataset.source;
+//   const instance = basicLightbox.create(`
+//     <img width="800" height="600" src="${largeImageURL}" alt="Large Image">
+//   `);
+
+//   instance.show();
+
+//   document.addEventListener("keydown", closeModalOnEscape);
+// }
+
+// function closeModalOnEscape(event) {
+//   if (event.key === "Escape") {
+//     basicLightbox.close();
+//     document.removeEventListener("keydown", closeModalOnEscape);
+//   }
+// }
+
+// gallery.addEventListener("click", openModal);
+
+// images.forEach((imageData) => {
+//   const galleryItem = createGalleryItem(imageData);
+//   gallery.appendChild(galleryItem);
+// });
+
 const gallery = document.querySelector(".gallery");
 
 function createGalleryItem({ preview, original, description }) {
@@ -96,24 +148,23 @@ function openModal(event) {
 
   const largeImageURL = event.target.dataset.source;
   const instance = basicLightbox.create(`
-    <img width="800" height="600" src="${largeImageURL}" alt="Large Image">
-  `);
+        <img width="800" height="600" src="${largeImageURL}" alt="Large Image">
+    `);
 
   instance.show();
-
-  document.addEventListener("keydown", closeModalOnEscape);
 }
 
 function closeModalOnEscape(event) {
   if (event.key === "Escape") {
     basicLightbox.close();
-    document.removeEventListener("keydown", closeModalOnEscape);
   }
 }
-
-gallery.addEventListener("click", openModal);
 
 images.forEach((imageData) => {
   const galleryItem = createGalleryItem(imageData);
   gallery.appendChild(galleryItem);
+
+  galleryItem.addEventListener("click", openModal);
 });
+
+document.addEventListener("keydown", closeModalOnEscape);
