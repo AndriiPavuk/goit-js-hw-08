@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <ul class="gallery"></ul>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.1/dist/basicLightbox.min.css"
+      integrity="sha512-2v5/PwEMJrMyMqr/ZMy7i52pXdtG5MkCPDBAKniqnARos3+n6GwSB5Lxw8h4fCVRMH/J0TCZZxg3AtTzkAAVZQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Image Gallery</title>
+  </head>
+  <body>
+    <ul class="gallery">
+      <li class="gallery-item">
+        <a class="gallery-link" href="#">
+          <img
+            class="gallery-image"
+            src="small-image.jpg"
+            data-source="large-image.jpg"
+            alt="Image description"
+          />
+        </a>
+      </li>
+    </ul>
+
+    <script src="gallery.js"></script>
+  </body>
 </html>
