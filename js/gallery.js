@@ -46,102 +46,102 @@ const images = [
   },
 ];
 
-const gallery = document.querySelector('.gallery');
+// const gallery = document.querySelector('.gallery');
 
-function createGalleryItem({ preview, original, description }) {
-  const galleryItem = document.createElement('li');
-  galleryItem.classList.add('gallery-item');
+// function createGalleryItem({ preview, original, description }) {
+//   const galleryItem = document.createElement('li');
+//   galleryItem.classList.add('gallery-item');
 
-  const link = document.createElement('a');
-  link.classList.add('gallery-link');
-  link.href = original;
+//   const link = document.createElement('a');
+//   link.classList.add('gallery-link');
+//   link.href = original;
 
-  const image = document.createElement('img');
-  image.classList.add('gallery-image');
-  image.src = preview;
-  image.alt = description;
-  image.setAttribute('data-source', original);
+//   const image = document.createElement('img');
+//   image.classList.add('gallery-image');
+//   image.src = preview;
+//   image.alt = description;
+//   image.setAttribute('data-source', original);
 
-  link.appendChild(image);
-  galleryItem.appendChild(link);
+//   link.appendChild(image);
+//   galleryItem.appendChild(link);
 
-  return galleryItem;
-}
+//   return galleryItem;
+// }
 
-function openModal(event) {
-  event.preventDefault();
+// function openModal(event) {
+//   event.preventDefault();
 
-  if (event.target.nodeName !== 'IMG') {
-    return;
-  }
-
-  const largeImageURL = event.target.dataset.source;
-  const instance = basicLightbox.create(`
-    <img width="800" height="600" src="${largeImageURL}" alt="Large Image">
-  `);
-
-  instance.show();
-
-  document.addEventListener('keydown', closeModalOnEscape.bind(null, instance));
-}
-
-function closeModalOnEscape(instance, event) {
-  if (event.key === 'Escape') {
-    instance.close();
-    document.removeEventListener('keydown', closeModalOnEscape);
-  }
-}
-
-gallery.addEventListener('click', openModal);
-
-images.forEach(imageData => {
-  const galleryItem = createGalleryItem(imageData);
-  gallery.appendChild(galleryItem);
-});
-// const galleryItemsRow = images
-//   .map(
-//     ({ preview, description, original }) => `
-// <li class="gallery-item">
-//   <a class="gallery-link" href="${original}">
-//     <img
-//       class="gallery-image"
-//       src="${preview}"
-//       data-source="${original}"
-//       alt="${description}"
-//     />
-//   </a>
-// </li>
-// `
-//   )
-//   .join('');
-
-// const galleryEl = document.querySelector('.gallery');
-// galleryEl.insertAdjacentHTML('beforeend', galleryItemsRow);
-// galleryEl.addEventListener('click', onOpensImageInModalWindow);
-
-// function onOpensImageInModalWindow(e) {
-//   e.preventDefault();
-//   if (e.target.nodeName !== 'IMG') {
+//   if (event.target.nodeName !== 'IMG') {
 //     return;
 //   }
 
-//   const instance = basicLightbox.create(
-//     `
-//   <img src="${e.target.dataset.source}" width="800" height="600">
-// `,
-//     {
-//       onShow: () => galleryEl.addEventListener('keydown', onClosesModalWindowUsingEscape),
-//       onClose: () =>
-//         galleryEl.removeEventListener('keydown', onClosesModalWindowUsingEscape, false),
-//     }
-//   );
+//   const largeImageURL = event.target.dataset.source;
+//   const instance = basicLightbox.create(`
+//     <img width="800" height="600" src="${largeImageURL}" alt="Large Image">
+//   `);
 
 //   instance.show();
 
-//   function onClosesModalWindowUsingEscape(e) {
-//     if (e.code !== 'Escape') {
-//       return;
-//     }
+//   document.addEventListener('keydown', closeModalOnEscape.bind(null, instance));
+// }
+
+// function closeModalOnEscape(instance, event) {
+//   if (event.key === 'Escape') {
 //     instance.close();
+//     document.removeEventListener('keydown', closeModalOnEscape);
 //   }
 // }
+
+// gallery.addEventListener('click', openModal);
+
+// images.forEach(imageData => {
+//   const galleryItem = createGalleryItem(imageData);
+//   gallery.appendChild(galleryItem);
+// });
+const galleryItemsRow = images
+  .map(
+    ({ preview, description, original }) => `
+<li class="gallery-item">
+  <a class="gallery-link" href="${original}">
+    <img
+      class="gallery-image"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
+    />
+  </a>
+</li>
+`
+  )
+  .join('');
+
+const galleryEl = document.querySelector('.gallery');
+galleryEl.insertAdjacentHTML('beforeend', galleryItemsRow);
+galleryEl.addEventListener('click', onOpensImageInModalWindow);
+
+function onOpensImageInModalWindow(e) {
+  e.preventDefault();
+  if (e.target.nodeName !== 'IMG') {
+    return;
+  }
+
+  const instance = basicLightbox.create(
+    `
+  <img src="${e.target.dataset.source}" width="800" height="600">
+`,
+    {
+      onShow: () => galleryEl.addEventListener('keydown', onClosesModalWindowUsingEscape),
+      onClose: () =>
+        galleryEl.removeEventListener('keydown', onClosesModalWindowUsingEscape, false),
+    }
+  );
+
+  instance.show();
+
+  function onClosesModalWindowUsingEscape(e) {
+    if (e.code !== 'Escape') {
+      return;
+    }
+    instance.close();
+  }
+}
